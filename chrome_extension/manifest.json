@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "AI Credit Card Recommender",
+  "version": "1.0",
+  "permissions": ["storage", "activeTab"],
+  "host_permissions": [
+    "https://shopee.tw/*",
+    "https://www.momoshop.com.tw/*",
+    "https://24h.pchome.com.tw/*",
+    "http://localhost:8000/*",
+    "http://127.0.0.1:8000/*",
+    "http://127.0.0.1:5500/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://shopee.tw/*",
+        "https://www.momoshop.com.tw/*",
+        "https://24h.pchome.com.tw/*",
+        "http://127.0.0.1:5500/*"
+      ],
+      "js": ["content.js"]
+    }
+  ]
+}
