@@ -111,8 +111,57 @@
                 <div class="flex justify-center gap-6">
                     <button onclick="alert('Proceed to Chatbot')" class="px-10 py-3 bg-main text-gray-800 font-bold rounded-xl shadow-md border-2 border-transparent hover:border-gray-400 transition-all">Yes</button>
                     <span class="text-2xl self-center">/</span>
-                    <button onclick="alert('Proceed to Add Card')" class="px-10 py-3 bg-main text-gray-800 font-bold rounded-xl shadow-md border-2 border-transparent hover:border-gray-400 transition-all">No</button>
+                    <button onclick="showPage('addCardPage')" class="px-10 py-3 bg-main text-gray-800 font-bold rounded-xl shadow-md border-2 border-transparent hover:border-gray-400 transition-all">No</button>
                 </div>
+            </div>
+
+            <div id="addCardPage" class="page flex-col p-10 content-area">
+              <h2 class="text-2xl font-bold mb-6">Add your Credit card</h2>
+    
+              <div class="space-y-4 mb-8">
+                  <div>
+                      <label class="block text-xs font-bold text-gray-400 mb-1">- Bank</label>
+                      <select class="custom-input w-full px-4 py-2 border-2 border-gray-100 rounded-xl outline-none focus:border-main text-black">
+                          <option disabled selected>select bank</option>
+                          <option>Cathay Bank</option>
+                          <option>E.SUN Bank</option>
+                      </select>
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-bold text-gray-400 mb-1">- Card Name</label>
+                    <select class="custom-input w-full px-4 py-2 border-2 border-gray-100 rounded-xl outline-none focus:border-main text-black">
+                        <option disabled selected>select card</option>
+                        <option>Cube Card</option>
+                        <option>U Bear Card</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 mb-1">- Reward Plan</label>
+                    <select class="custom-input w-full px-4 py-2 border-2 border-gray-100 rounded-xl outline-none focus:border-main text-black">
+                        <option disabled selected>select plan</option>
+                        <option>Travel Plan</option>
+                        <option>Shopping Plan</option>
+                    </select>
+                </div>
+
+                <button class="w-full bg-main text-gray-800 font-bold py-2 rounded-xl shadow-md btn-hover mt-2">Add card</button>
+              </div>
+
+              <div class="border-t-2 border-gray-100 pt-6">
+                <h3 class="text-lg font-bold mb-3 text-main">Your Card</h3>
+                <ul class="space-y-3 mb-6 text-sm">
+                  <li class="card-item flex justify-between items-center p-3 rounded-lg border-2 border-gray-100 theme-transition">
+                      <span>Cathay Cube Card [Travel Plan]</span>
+                      <div class="flex gap-2">
+                          <button class="text-xs text-red-400 font-bold">[Remove]</button>
+                          <button class="text-xs text-gray-400 font-bold">[Edit]</button>
+                      </div>
+                  </li>
+                </ul>
+                <button onclick="alert('Going to Chatbot...')" class="w-full border-2 border-main text-main font-bold py-3 rounded-xl btn-hover">continue to Chatbot</button>
+              </div>
             </div>
 
         </div>
@@ -145,21 +194,39 @@
             const inputs = document.querySelectorAll('.custom-input');
 
             if (isDark) {
-                // Dark Mode styles
-                contentAreas.forEach(area => area.style.color = "#ffffff");
-                inputs.forEach(input => {
-                    input.style.backgroundColor = "#1a1a1a";
-                    input.style.color = "#ffffff";
-                    input.style.borderColor = "#333333";
-                });
+              // --- Dark Mode Styles ---
+              contentAreas.forEach(area => area.style.color = "#ffffff");
+              
+              // Handle all inputs and selects
+              inputs.forEach(input => {
+                  input.style.backgroundColor = "#1a1a1a";
+                  input.style.color = "#ffffff";
+                  input.style.borderColor = "#333333";
+              });
+
+              // Handle the specific card list items
+              document.querySelectorAll('.card-item').forEach(item => {
+                  item.style.backgroundColor = "#1a1a1a";
+                  item.style.color = "#ffffff";
+                  item.style.borderColor = "#333333";
+              });
             } else {
-                // Light Mode styles
-                contentAreas.forEach(area => area.style.color = "#1f2937");
-                inputs.forEach(input => {
-                    input.style.backgroundColor = "#ffffff";
-                    input.style.color = "#000000";
-                    input.style.borderColor = "#f3f4f6";
-                });
+              // --- Light Mode Styles ---
+              contentAreas.forEach(area => area.style.color = "#1f2937");
+              
+              // Handle all inputs and selects
+              inputs.forEach(input => {
+                  input.style.backgroundColor = "#ffffff";
+                  input.style.color = "#000000";
+                  input.style.borderColor = "#f3f4f6";
+              });
+
+              // Handle the specific card list items
+              document.querySelectorAll('.card-item').forEach(item => {
+                  item.style.backgroundColor = "#f9fafb"; // Light gray background
+                  item.style.color = "#1f2937";           // Dark text
+                  item.style.borderColor = "#f3f4f6";
+              });
             }
         }
         
