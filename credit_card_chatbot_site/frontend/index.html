@@ -1,11 +1,170 @@
-<!doctype html>
-<html lang="zh-Hant">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Credit Card Chatbot Site</title>
-  </head>
-  <body>
-    <div id="root">Chatbot frontend scaffold is ready.</div>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Cashback Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tailwind config for custom primary and secondary colors
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'main': '#c0d6eb', 
+                        'sub': '#ffffff',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .page { display: none; }
+        .page.active { display: flex; }
+        .theme-transition { transition: all 0.4s ease-in-out; }
+        /* Smooth scale effect for buttons */
+        .btn-hover:active { transform: scale(0.98); }
+    </style>
+</head>
+<body id="mainBody" class="min-h-screen flex flex-col font-sans theme-transition bg-sub">
+
+    <div class="fixed top-4 right-4 z-50 flex gap-2 bg-white p-3 rounded-xl shadow-2xl border border-gray-100">
+        <div class="flex flex-col">
+            <label class="text-[10px] font-bold text-gray-400 mb-1">PRIMARY</label>
+            <select id="primarySelect" class="text-sm p-1 border rounded bg-gray-50 outline-none text-black" onchange="updateTheme()">
+                <option value="#c0d6eb">Blue</option>
+                <option value="#d0ded8">Green</option>
+                <option value="#facaca">Pink</option>
+                <option value="#ffe269">Yellow</option>
+                <option value="#d8dde0">Gray</option>
+            </select>
+        </div>
+        <div class="flex flex-col">
+            <label class="text-[10px] font-bold text-gray-400 mb-1">SECONDARY</label>
+            <select id="secondarySelect" class="text-sm p-1 border rounded bg-gray-50 outline-none text-black" onchange="updateTheme()">
+                <option value="#ffffff">White</option>
+                <option value="#000000">Black</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="flex-1 flex items-center justify-center p-6">
+        
+        <div id="authCard" class="w-full max-w-md theme-transition rounded-[3rem] shadow-2xl overflow-hidden border-4 border-main bg-sub">
+            
+            <div id="welcomePage" class="page active flex-col p-12 text-center content-area">
+                <h1 class="text-3xl font-bold text-main mb-4">AI Cashback Assistant</h1>
+                <p class="text-lg-10 mb-12">Find the best card reward for every purchase</p>
+                
+                <div class="flex flex-col gap-4">
+                    <button onclick="showPage('loginPage')" class="w-full bg-main text-gray-800 font-bold py-4 rounded-2xl btn-hover shadow-lg">Log in</button>
+                    <button onclick="showPage('registerPage')" class="w-full bg-main text-gray-800 font-bold py-4 rounded-2xl btn-hover shadow-lg">Sign up</button>
+                    <button class="mt-8 text-gray-400 hover:underline">continue as Guest</button>
+                </div>
+            </div>
+
+            <div id="registerPage" class="page flex-col p-12 content-area">
+                <h2 class="text-3xl font-bold mb-8">Create an account</h2>
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Email</label>
+                        <input type="email" class="custom-input w-full px-5 py-3 border-2 border-gray-100 rounded-xl outline-none focus:border-main" placeholder="email@example.com">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Password</label>
+                        <input type="password" class="custom-input w-full px-5 py-3 border-2 border-gray-100 rounded-xl outline-none focus:border-main" placeholder="****************">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Confirm Password</label>
+                        <input type="password" class="custom-input w-full px-5 py-3 border-2 border-gray-100 rounded-xl outline-none focus:border-main" placeholder="****************">
+                    </div>
+                    <button onclick="showPage('statusPage')" class="w-full bg-main text-gray-800 font-bold py-4 rounded-2xl shadow-lg mt-4">Create an account</button>
+                    <div class="text-center pt-4">
+                        <p class="text-sm text-gray-400 mb-2">Already have an account?</p>
+                        <button onclick="showPage('loginPage')" class="text-main font-bold border-b-2 border-main">Login</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="loginPage" class="page flex-col p-12 content-area">
+                <h2 class="text-3xl font-bold mb-8">Login</h2>
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Email</label>
+                        <input type="email" class="custom-input w-full px-5 py-3 border-2 border-gray-100 rounded-xl outline-none focus:border-main" placeholder="email@example.com">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Password</label>
+                        <input type="password" class="custom-input w-full px-5 py-3 border-2 border-gray-100 rounded-xl outline-none focus:border-main" placeholder="****************">
+                    </div>
+                    <button onclick="showPage('statusPage')" class="w-full bg-main text-gray-800 font-bold py-4 rounded-2xl shadow-lg">Login</button>
+                    <button class="w-full text-sm text-gray-400 hover:text-main text-left">Forgot Password?</button>
+                    <p class="text-sm pt-4">Don't have an account? <button onclick="showPage('registerPage')" class="text-main font-bold">Sign up</button></p>
+                </div>
+            </div>
+
+            <div id="statusPage" class="page flex-col p-12 text-center content-area">
+                <div class="mb-12">
+                    <h2 class="text-2xl font-bold mb-8">Login success</h2>
+                    <p class="text-xl">Has credit card?</p>
+                </div>
+                <div class="flex justify-center gap-6">
+                    <button onclick="alert('Proceed to Chatbot')" class="px-10 py-3 bg-main text-gray-800 font-bold rounded-xl shadow-md border-2 border-transparent hover:border-gray-400 transition-all">Yes</button>
+                    <span class="text-2xl self-center">/</span>
+                    <button onclick="alert('Proceed to Add Card')" class="px-10 py-3 bg-main text-gray-800 font-bold rounded-xl shadow-md border-2 border-transparent hover:border-gray-400 transition-all">No</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Navigation Logic: Hides all pages and shows the target ID
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // Theme Sync Logic: Updates UI based on Primary/Secondary color selection
+        function updateTheme() {
+            const primary = document.getElementById('primarySelect').value;
+            const secondary = document.getElementById('secondarySelect').value;
+            const isDark = secondary === "#000000";
+            
+            // Apply Secondary color to Body background and Card background
+            document.getElementById('mainBody').style.backgroundColor = secondary;
+            document.getElementById('authCard').style.backgroundColor = secondary;
+
+            // Apply Primary color to Buttons, Borders, and Titles
+            document.querySelectorAll('.bg-main').forEach(el => el.style.backgroundColor = primary);
+            document.querySelectorAll('.border-main').forEach(el => el.style.borderColor = primary);
+            document.querySelectorAll('.text-main').forEach(el => el.style.color = primary);
+
+            // Handle Text and Input Contrast
+            const contentAreas = document.querySelectorAll('.content-area');
+            const inputs = document.querySelectorAll('.custom-input');
+
+            if (isDark) {
+                // Dark Mode styles
+                contentAreas.forEach(area => area.style.color = "#ffffff");
+                inputs.forEach(input => {
+                    input.style.backgroundColor = "#1a1a1a";
+                    input.style.color = "#ffffff";
+                    input.style.borderColor = "#333333";
+                });
+            } else {
+                // Light Mode styles
+                contentAreas.forEach(area => area.style.color = "#1f2937");
+                inputs.forEach(input => {
+                    input.style.backgroundColor = "#ffffff";
+                    input.style.color = "#000000";
+                    input.style.borderColor = "#f3f4f6";
+                });
+            }
+        }
+        
+        // Initialize theme on load
+        updateTheme();
+    </script>
+</body>
 </html>
