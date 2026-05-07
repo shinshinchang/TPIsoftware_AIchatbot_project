@@ -1,0 +1,72 @@
+[
+  {
+    "id": "fallback-1",
+    "bankName": "玉山銀行",
+    "cardName": "玉山 Pi 拍錢包信用卡",
+    "rewardType": "現金回饋",
+    "rewardRate": 0.05,
+    "maxReward": 300,
+    "minSpend": 100,
+    "platforms": ["shopee", "online"],
+    "categories": ["online", "general"],
+    "description": "蝦皮與線上消費的高回饋選擇",
+    "accent": "#f59e0b",
+    "active": true
+  },
+  {
+    "id": "fallback-2",
+    "bankName": "台新銀行",
+    "cardName": "台新玫瑰卡",
+    "rewardType": "現金回饋",
+    "rewardRate": 0.04,
+    "maxReward": 200,
+    "minSpend": 0,
+    "platforms": ["momo", "online"],
+    "categories": ["online", "general"],
+    "description": "momo、網購日常採買的穩定回饋",
+    "accent": "#5aa7ff",
+    "active": true
+  },
+  {
+    "id": "fallback-3",
+    "bankName": "國泰世華",
+    "cardName": "CUBE 卡",
+    "rewardType": "點數回饋",
+    "rewardRate": 0.033,
+    "maxReward": 250,
+    "minSpend": 0,
+    "platforms": ["pchome", "online"],
+    "categories": ["online", "general"],
+    "description": "適合 PChome 與日常線上結帳",
+    "accent": "#7cdb7c",
+    "active": true
+  },
+  {
+    "id": "fallback-4",
+    "bankName": "台北富邦",
+    "cardName": "J 卡",
+    "rewardType": "現金回饋",
+    "rewardRate": 0.08,
+    "maxReward": 150,
+    "minSpend": 0,
+    "platforms": ["ubereats"],
+    "categories": ["food"],
+    "description": "餐飲、外送的強力回饋卡",
+    "accent": "#ff8a5c",
+    "active": true
+  },
+  {
+    "id": "fallback-5",
+    "bankName": "永豐銀行",
+    "cardName": "DAWHO 現金回饋卡",
+    "rewardType": "現金回饋",
+    "rewardRate": 0.02,
+    "maxReward": 500,
+    "minSpend": 0,
+    "platforms": ["general"],
+    "categories": ["general"],
+    "description": "沒有特定平台時的萬用備案",
+    "accent": "#a78bfa",
+    "active": true
+  }
+]

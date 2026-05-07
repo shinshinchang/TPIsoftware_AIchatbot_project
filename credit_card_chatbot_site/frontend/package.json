@@ -1,0 +1,9 @@
+{
+  "name": "credit-card-chatbot-frontend",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "echo frontend scaffold only",
+    "build": "echo frontend scaffold only"
+  }
+}

@@ -62,7 +62,29 @@ Server: `http://localhost:8000`
 Extension path: `chrome_extension/`
 
 Includes:
-- `manifest.json`
-- `content.js`
+- React + Tailwind popup UI
+- Manifest V3 background worker
+- content script floating recommendation widget
+- local mock card library and recommendation rules
 
-Load via Chrome `chrome://extensions` -> Enable Developer Mode -> Load unpacked -> select `chrome_extension` folder.
+### Build
+
+```bash
+cd chrome_extension
+npm install
+npm run build
+```
+
+### Load unpacked
+
+Open Chrome `chrome://extensions`, enable Developer Mode, and load the `chrome_extension/dist` folder.
+
+### Test pages
+
+- `https://shopee.tw/*`
+- `https://www.momoshop.com.tw/*`
+- `https://24h.pchome.com.tw/*`
+- `https://www.ubereats.com/*`
+- `https://www.books.com.tw/*`
+- `http://127.0.0.1:5500/*`
+- local files if Chrome has file access enabled
