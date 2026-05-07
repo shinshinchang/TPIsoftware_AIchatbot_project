@@ -109,7 +109,7 @@
                     <p class="text-xl">Has credit card?</p>
                 </div>
                 <div class="flex justify-center gap-6">
-                    <button onclick="alert('Proceed to Chatbot')" class="px-10 py-3 bg-main text-gray-800 font-bold rounded-xl shadow-md border-2 border-transparent hover:border-gray-400 transition-all">Yes</button>
+                    <button onclick="showPage('chatbotPage')" class="px-10 py-3 bg-main text-gray-800 font-bold rounded-xl shadow-md border-2 border-transparent hover:border-gray-400 transition-all">Yes</button>
                     <span class="text-2xl self-center">/</span>
                     <button onclick="showPage('addCardPage')" class="px-10 py-3 bg-main text-gray-800 font-bold rounded-xl shadow-md border-2 border-transparent hover:border-gray-400 transition-all">No</button>
                 </div>
@@ -160,9 +160,35 @@
                       </div>
                   </li>
                 </ul>
-                <button onclick="alert('Going to Chatbot...')" class="w-full border-2 border-main text-main font-bold py-3 rounded-xl btn-hover">continue to Chatbot</button>
+                <button onclick="showPage('chatbotPage')" class="w-full border-2 border-main text-main font-bold py-3 rounded-xl btn-hover">continue to Chatbot</button>
               </div>
             </div>
+
+            <div id="chatbotPage" class="page flex-col h-[500px] content-area">
+              <div class="bg-main p-4 text-center theme-transition">
+                  <h2 class="text-sm font-bold text-gray-800">AI Cashback Assistant</h2>
+              </div>
+
+              <div id="chatMessages" class="flex-1 overflow-y-auto p-6 space-y-4 text-sm">
+                  <div class="flex flex-col items-start">
+                      <div class="bg-gray-100 rounded-2xl p-3 max-w-[80%] card-item">
+                          <p>What do you plan to buy?</p>
+                      </div>
+                      <div class="flex flex-wrap gap-2 mt-2">
+                          <button onclick="simulateChat('Online Shopping')" class="px-3 py-1 border border-main text-main rounded-full text-xs hover:bg-main hover:text-white transition-all">Online Shopping</button>
+                          <button onclick="simulateChat('Dining')" class="px-3 py-1 border border-main text-main rounded-full text-xs hover:bg-main hover:text-white transition-all">Dining</button>
+                          <button onclick="simulateChat('Travel')" class="px-3 py-1 border border-main text-main rounded-full text-xs hover:bg-main hover:text-white transition-all">Travel</button>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="p-4 border-t border-gray-100 bg-sub theme-transition">
+                  <div class="flex gap-2">
+                      <input id="chatInput" type="text" class="custom-input flex-1 px-4 py-2 border-2 border-gray-100 rounded-xl outline-none focus:border-main" placeholder="Type your question...">
+                      <button onclick="simulateChat()" class="bg-main text-gray-800 px-4 py-2 rounded-xl font-bold btn-hover shadow-md">Send</button>
+                  </div>
+              </div>
+          </div>
 
         </div>
     </div>
@@ -228,6 +254,49 @@
                   item.style.borderColor = "#f3f4f6";
               });
             }
+        }
+
+        // Function to simulate Chat transitions based on your screenshot
+        function simulateChat(text) {
+            const chatMessages = document.getElementById('chatMessages');
+            const input = document.getElementById('chatInput');
+            const message = text || input.value;
+            if (!message) return;
+
+            // 1. Show User Message
+            chatMessages.innerHTML += `
+                <div class="flex flex-col items-end">
+                    <div class="bg-main text-gray-800 rounded-2xl p-3 max-w-[80%] shadow-sm">
+                        <p>${message}</p>
+                    </div>
+                </div>`;
+            input.value = '';
+
+            // 2. Show Loading State
+            const loadingId = 'loading-' + Date.now();
+            chatMessages.innerHTML += `
+                <div id="${loadingId}" class="flex flex-col items-start animate-pulse">
+                    <div class="px-3 py-1">
+                        <p class="text-xs text-gray-400 italic">AI is analyzing the best cards for you...</p>
+                    </div>
+                </div>`;
+
+            // 3. Simulate AI Result after 1.5 seconds
+            setTimeout(() => {
+                document.getElementById(loadingId).remove();
+                chatMessages.innerHTML += `
+                    <div class="flex flex-col items-start space-y-3 w-full">
+                        <div class="bg-gray-100 rounded-2xl p-4 w-full card-item border-l-4 border-green-400">
+                            <p class="font-bold text-main mb-2">Recommended Cards</p>
+                            <p class="text-xs font-bold text-red-500">Best card You own: Cathay Cube Card</p>
+                            <p class="text-xs">Cashback: 3% | Estimated Reward: NT$90</p>
+                            <p class="text-[10px] text-gray-400 mt-1">Why? Best match for online shopping.</p>
+                        </div>
+                        <button onclick="location.reload()" class="text-xs text-main font-bold">Ask Another question...</button>
+                    </div>`;
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                updateTheme(); // Re-apply theme to new elements
+            }, 1500);
         }
         
         // Initialize theme on load
